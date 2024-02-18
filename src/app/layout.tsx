@@ -45,7 +45,7 @@ export default function RootLayout({
 			<body className={inter.className + " " + " bg-slate-900"}>
 				<Providers>
 					<div
-						className="px-10 py-5 lg:py-0  grid grid-rows-[20%_80%] lg:grid-cols-2 min-h-screen  items-center justify-between  bg-cover bg-center bg-no-repeat relative bg-slate-900"
+						className="px-10 py-5 lg:py-0  grid grid-rows-[20%_80%] lg:grid-cols-[0.5fr_50px_0.5fr] min-h-screen  items-center justify-between  bg-cover bg-center bg-no-repeat relative bg-slate-900"
 						style={{
 							backgroundImage: "url(/texture.jpg)",
 							backgroundBlendMode: "color-burn",
@@ -100,28 +100,32 @@ export default function RootLayout({
 									</div>
 									<div
 										id="about_site"
-										className=" hidden lg:visible text-base text-slate-500"
+										className=" hidden lg:block text-base text-slate-500"
 									>
-										Built by yours truly with NextJS, and react. Coded in
-										VSCode. Deployed in Vercel
+										Designed and developed by yours truly with NextJS, and
+										react. Coded in VSCode. Deployed in Vercel
 									</div>
 								</div>
 							</div>
 						</div>
+						<div className="hidden lg:block justify-self-center border-slate-700  h-[70vh] w-[1px] border-1"></div>
 						<div
 							id="page"
-							className="grid lg:min-h-screen  "
+							className="grid lg:h-[100vh] "
 							style={{
 								gridTemplateRows: "auto 2fr",
 							}}
 						>
 							<div
 								id="nav"
-								className="pb-10 lg:pt-20 self-start justify-self-center"
+								className="pb-5 lg:pt-14 self-start justify-self-center"
 							>
 								<NavBar />
 							</div>
-							<div id="dataholder">{children}</div>
+
+							<div id="dataholder" className="overflow-auto">
+								{children}
+							</div>
 						</div>
 						{/* <div
 				style={{
