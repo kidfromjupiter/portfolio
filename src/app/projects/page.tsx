@@ -66,7 +66,7 @@ export default function Projects() {
 		<div className="w-full h-full  relative m-auto py-10">
 			{cardStack.map((card, i) => {
 				return (
-					<div className="pb-5 flex flex-col items-center">
+					<div className="pb-5 flex flex-col items-center" key={i}>
 						{card.component}
 					</div>
 				);

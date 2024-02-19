@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import type { NextApiRequest, NextApiResponse } from "next";
-export async function POST(req, res) {
+export async function POST(req: NextRequest, res: NextResponse) {
 	try {
 		const { email, description } = await req.json();
 		const transporter = nodemailer.createTransport({
