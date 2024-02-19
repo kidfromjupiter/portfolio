@@ -17,7 +17,7 @@ export default function ProgressHolder({
 				}}
 				color="default"
 				valueLabel={
-					<div className="text-lg md:text-xl font-semibold">
+					<div className="text-base md:text-xl font-semibold">
 						{progress / 10}/10
 					</div>
 				}
