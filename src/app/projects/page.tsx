@@ -1,7 +1,76 @@
+"use client";
+
+import { useRef, useState } from "react";
+import ProjectCard from "@/components/ProjectCard";
 export default function Projects() {
+	const [cardStack, setCardStack] = useState<
+		Array<{ id: number; component: React.ReactNode }>
+	>([
+		{
+			id: 1,
+			component: (
+				<ProjectCard
+					name="Taste"
+					desc="E-commerce platform"
+					image="/website.jpg"
+					link="#"
+					tags={[
+						"Django",
+						"AWS",
+						"React",
+						"Vercel",
+						"Figma",
+						"django-rest-framework",
+						"framer-motion",
+					].map((tag, i) => (
+						<div
+							key={i}
+							className="rounded bg-sky-600 py-0.5 px-2  mx-0.5 my-0.5"
+						>
+							{tag}
+						</div>
+					))}
+				/>
+			),
+		},
+		{
+			id: 2,
+			component: (
+				<ProjectCard
+					name="Portals"
+					desc="Chat application"
+					image="/website.jpg"
+					link="#"
+					tags={[
+						"Django",
+						"React",
+						"Vercel",
+						"Figma",
+						"django-rest-framework",
+						"framer-motion",
+						"django-channels",
+					].map((tag, i) => (
+						<div
+							key={i}
+							className="rounded bg-sky-600 py-0.5 px-2  mx-0.5 my-0.5"
+						>
+							{tag}
+						</div>
+					))}
+				/>
+			),
+		},
+	]);
+
 	return (
-		<div>
-			<h1>Projects</h1>
+		<div className="w-full h-full  relative m-auto py-10">
+			{cardStack.map((card, i) => {
+				return (
+					<div className="pb-5 flex flex-col items-center">
+						{card.component}
+					</div>
+				);
+			})}
 		</div>
 	);
 }

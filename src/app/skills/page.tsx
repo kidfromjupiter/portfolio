@@ -6,7 +6,7 @@ import SkillCard from "@/components/SkillCard";
 import { CircularProgress, Tabs, Tab, Card } from "@nextui-org/react";
 export default function Skills() {
 	return (
-		<div className="flex flex-col overflow-auto">
+		<div className="flex flex-col  items-center overflow-auto">
 			<Tabs
 				classNames={{
 					base: "justify-center",
@@ -28,11 +28,11 @@ export default function Skills() {
 						<ProgressHolder label="JavaScript" progress={80} />
 					</SkillCard>
 				</Tab>
-				<Tab key="others" title="Others">
+				<Tab key="others" title="Others" className="">
 					<div className="text-xl text-slate-500 px-10 pt-5">
 						Other technologies/frameworks/software I have experience using
 					</div>
-					<div className="flex-col overflow-auto">
+					<div className="flex-col pb-10">
 						<Othersholder title="Frontend/Design">
 							<Others name="Figma" />
 							<Others name="TailwindCSS" />

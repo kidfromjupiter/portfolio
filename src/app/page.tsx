@@ -3,10 +3,10 @@
 export default function Home({ children }: any) {
 	return (
 		<div className="flex flex-col items-center justify-center">
-			<div className="pb-10 bg-clip-text bg-gradient-to-br from-amber-400 to-amber-500 text-transparent text-4xl font-bold">
+			<div className="pb-10 pt-10 md:pt-0 bg-clip-text bg-gradient-to-br from-amber-400 to-amber-500 text-transparent text-4xl font-bold">
 				My Journey in Code
 			</div>
-			<div className="text-slate-400 text-xl  px-16">
+			<div className="text-slate-400 text-xl  px-5 pb-10 md:px-16">
 				<p>
 					I&apos;ve been programming since I was 12 years old. I stumbled upon
 					the world of programming while struggling to install a game on my

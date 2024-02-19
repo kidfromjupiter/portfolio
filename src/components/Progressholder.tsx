@@ -13,11 +13,13 @@ export default function ProgressHolder({
 				size="lg"
 				value={progress}
 				classNames={{
-					svg: "w-24 h-24",
+					svg: "w-16 h-16 md:w-24 md:h-24",
 				}}
 				color="default"
 				valueLabel={
-					<div className="text-xl font-semibold">{progress / 10}/10</div>
+					<div className="text-lg md:text-xl font-semibold">
+						{progress / 10}/10
+					</div>
 				}
 				showValueLabel
 			/>

@@ -1,24 +1,13 @@
-import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
-import Card from "@/components/card";
-import CardHolder from "@/components/cardholder";
-import {
-	useMotionValue,
-	LayoutGroup,
-	motion,
-	useTransform,
-} from "framer-motion";
-import { useState } from "react";
+
 import { Image, Tabs, Tab } from "@nextui-org/react";
 import NextImage from "next/image";
 import Github from "@/icons/Github";
 import LinkedIn from "@/icons/LinkedIn";
 import Instagram from "@/icons/Instagram";
-import { usePathname } from "next/navigation";
 import NavBar from "@/components/Navbar";
-import Link from "next/link";
 const inter = Inter({ subsets: ["latin"] });
 
 // export const metadata: Metadata = {
@@ -42,10 +31,10 @@ export default function RootLayout({
 				}
 			}
 		>
-			<body className={inter.className + " " + " bg-slate-900"}>
+			<body className={inter.className + " " + " bg-slate-900 "}>
 				<Providers>
 					<div
-						className="px-10 py-5 lg:py-0  grid grid-rows-[20%_80%] lg:grid-cols-[0.5fr_50px_0.5fr] min-h-screen  items-center justify-between  bg-cover bg-center bg-no-repeat relative bg-slate-900"
+						className="px-5 md:px-10 py-5 lg:py-0  grid grid-rows-[0.2fr_0.8fr] lg:grid-cols-[0.5fr_50px_0.5fr] lg:grid-rows-1  justify-between  bg-cover bg-center bg-no-repeat bg-slate-900 overflow-auto h-screen "
 						style={{
 							backgroundImage: "url(/texture.jpg)",
 							backgroundBlendMode: "color-burn",
@@ -53,7 +42,7 @@ export default function RootLayout({
 					>
 						<div
 							id="infoholder"
-							className="flex lg:min-h-screen flex-row lg:flex-col justify-evenly "
+							className="flex lg:min-h-screen flex-col md:flex-row lg:flex-col justify-evenly "
 						>
 							<div id="general_about">
 								<div className="py-5">
@@ -66,12 +55,15 @@ export default function RootLayout({
 										Full stack developer
 									</div>
 								</div>
-								<div id="about_small" className="text-2xl text-slate-500">
+								<div id="about_small" className="text-xl text-slate-500">
 									I build performant web applications for clients and help
 									create scalable, robust platforms
 								</div>
 							</div>
-							<div id="photo_and_contact" className="px-5">
+							<div
+								id="photo_and_contact"
+								className="px-5 flex flex-col justify-center items-center pt-10 md:pt-0 md:justify-normal md:items-start "
+							>
 								<Image
 									as={NextImage}
 									width={250}
@@ -81,7 +73,10 @@ export default function RootLayout({
 									isBlurred
 								/>
 								<div id="contact">
-									<div id="contact_info" className="flex py-5">
+									<div
+										id="contact_info"
+										className="flex py-5 items-center justify-center md:justify-normal"
+									>
 										<Github
 											width={42}
 											height={42}
@@ -108,10 +103,12 @@ export default function RootLayout({
 								</div>
 							</div>
 						</div>
-						<div className="hidden lg:block justify-self-center border-slate-700  h-[70vh] w-[1px] border-1"></div>
+						<div className="h-full w-full hidden lg:flex  justify-center items-center">
+							<div className=" justify-self-center border-slate-700  h-[70vh] w-[1px] border-1"></div>
+						</div>
 						<div
 							id="page"
-							className="grid lg:h-[100vh] "
+							className="grid lg:h-[100vh] pt-5 md:pt-16 lg:pt-0"
 							style={{
 								gridTemplateRows: "auto 2fr",
 							}}
@@ -123,18 +120,10 @@ export default function RootLayout({
 								<NavBar />
 							</div>
 
-							<div id="dataholder" className="overflow-auto">
+							<div id="dataholder" className="lg:overflow-auto">
 								{children}
 							</div>
 						</div>
-						{/* <div
-				style={{
-					backgroundImage: "url(/texture.jpg)",
-					backgroundBlendMode: "color-burn",
-				}}
-				className=" absolute right-0 left-0 top-0 bottom-0 bg-cover bg-no-repeat bg-center bg-slate-700"
-			></div> */}
-						{/* <CardHolder cardStack={cardStack} sendCardToBack={sendCardToBack} /> */}
 					</div>
 				</Providers>
 			</body>

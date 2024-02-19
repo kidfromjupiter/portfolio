@@ -10,7 +10,7 @@ export default function NavBar({}: any) {
 			classNames={{
 				tabContent: "group-data-[selected=true]:text-amber-950",
 				cursor: "dark:bg-gradient-to-br dark:from-amber-400 dark:to-amber-500 ",
-				tabList: "dark:bg-slate-800",
+				tabList: "dark:bg-slate-800  z-50 shadow-lg",
 			}}
 			selectedKey={pathname}
 			// children={(item) => {
