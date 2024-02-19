@@ -12,13 +12,13 @@ export default function Home({ children }: any) {
 					the world of programming while struggling to install a game on my
 					dad&apos;s laptop. Not knowing heads or tails about the errors it was
 					giving me, I inevitably turned to google. Which forced me down a
-					rabbit hole of code. fast forward 8 years and here I am.
+					rabbit hole of code. Fast forward 8 years and here I am.
 				</p>
 				<br />
 				<p>
 					My main focus these days is improving on my craft and learning new
 					things. Work revolves around django, react and new web technologies
-					that popup here and there. Wanna know what I&apos;ve been upto? check
+					that popup here and there. Wanna know what I&apos;ve been upto? Check
 					out my projects.
 				</p>
 				<br />
