@@ -3,7 +3,7 @@
 export default function Home({ children }: any) {
 	return (
 		<div className="flex flex-col items-center justify-center">
-			<div className="pb-10 pt-10 md:pt-0 bg-clip-text bg-gradient-to-br from-amber-400 to-amber-500 text-transparent text-4xl font-bold">
+			<div className="pb-10 pt-0 md:pt-0 lg:pt-10 bg-clip-text bg-gradient-to-br from-amber-400 to-amber-500 text-transparent text-4xl font-bold">
 				My Journey in Code
 			</div>
 			<div className="text-slate-400 text-xl  px-5 pb-10 md:px-16">

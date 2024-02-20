@@ -34,7 +34,7 @@ export default function RootLayout({
 			<body className={inter.className + " " + " bg-slate-900 "}>
 				<Providers>
 					<div
-						className="px-5 md:px-10 py-5 lg:py-0  grid grid-rows-[0.2fr_0.8fr] lg:grid-cols-[0.5fr_50px_0.5fr] lg:grid-rows-1  justify-between  bg-cover bg-center bg-no-repeat bg-slate-900 overflow-auto h-screen "
+						className="px-5 md:px-10 md:py-10  lg:py-0  grid grid-rows-[0.2fr_0.8fr] lg:grid-cols-[0.5fr_50px_0.5fr] lg:grid-rows-1  justify-between  bg-cover bg-center bg-no-repeat bg-slate-900 overflow-auto h-screen "
 						style={{
 							backgroundImage: "url(/texture.jpg)",
 							backgroundBlendMode: "color-burn",
@@ -72,7 +72,7 @@ export default function RootLayout({
 									alt="NextUI hero Image"
 									isBlurred
 								/>
-								<div id="contact">
+								<div id="contact" className=" hidden md:block">
 									<div
 										id="contact_info"
 										className="flex py-5 items-center justify-center md:justify-normal"
@@ -108,7 +108,7 @@ export default function RootLayout({
 						</div>
 						<div
 							id="page"
-							className="grid lg:h-[100vh] pt-5 md:pt-16 lg:pt-0"
+							className="grid lg:h-[100vh] pt-8 md:pt-16 lg:pt-0"
 							style={{
 								gridTemplateRows: "auto 2fr",
 							}}
@@ -122,6 +122,33 @@ export default function RootLayout({
 
 							<div id="dataholder" className="lg:overflow-auto">
 								{children}
+							</div>
+							<div id="contact " className="md:hidden mt-10">
+								<hr className="border-slate-800" />
+								<div id="contact_info" className="flex py-5 ">
+									<Github
+										width={42}
+										height={42}
+										className="mx-2  fill-slate-300"
+									/>
+									<LinkedIn
+										width={42}
+										height={42}
+										className="mx-2  fill-slate-300"
+									/>
+									<Instagram
+										width={42}
+										height={42}
+										className="mx-2  fill-slate-300"
+									/>
+								</div>
+								<div
+									id="about_site"
+									className="  text-base text-slate-500 pb-10"
+								>
+									Designed and developed by yours truly with NextJS, and react.
+									Coded in VSCode. Deployed in Vercel
+								</div>
 							</div>
 						</div>
 					</div>

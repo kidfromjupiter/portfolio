@@ -20,7 +20,7 @@ export default function Contact() {
 			/>
 			<div className=" w-full j">
 				<div className="text-slate-500 pb-5 text-center">
-					I usually get back to you within 24 hours.
+					I usually get back to you within a couple of hours.
 				</div>
 				<Button
 					isLoading={loading}
