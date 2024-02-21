@@ -27,6 +27,11 @@ export default function Skills() {
 						<ProgressHolder label="Python" progress={70} />
 						<ProgressHolder label="JavaScript" progress={80} />
 					</SkillCard>
+					<div className=" text-slate-600 px-10 pt-5">
+						*All stats are relative. For example 9/10 for react does not mean
+						I&apos;m a react god. It means I know enough to code 90% of all
+						react jobs
+					</div>
 				</Tab>
 				<Tab key="others" title="Others" className="">
 					<div className="text-xl text-slate-500 px-10 pt-5">
