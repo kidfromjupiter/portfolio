@@ -40,7 +40,7 @@ export default function Projects() {
 					name="Portals"
 					desc="Chat application"
 					image="/website.jpg"
-					link="#"
+					link="https://portals-alpha.vercel.app/"
 					tags={[
 						"Django",
 						"React",
