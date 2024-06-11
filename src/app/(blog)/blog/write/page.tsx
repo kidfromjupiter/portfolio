@@ -7,7 +7,7 @@ const Editor = dynamic(() => import('@/components/Editorjs'), {
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from 'react';
 
-const API_URL = process.env.API_URL
+const API_URL = process.env.NEXT_PUBLIC_API_URL
 export default function WriteBlog(){
   const ref = useRef(null)
   const [title,setTitle] = useState<string>();
@@ -44,14 +44,14 @@ export default function WriteBlog(){
 
   }
   return (
-    <div className='flex flex-col m-10 justify-center items-center'>
+    <div className='flex flex-col p-10 items-center text-black dark:text-neutral-100 dark:bg-neutral-900'>
       <div className='my-2 w-full lg:w-2/3'>
-        <input value={title} onChange={(e)=>setTitle(e.target.value)} type="text" className="w-full  rounded-md bg-gray-50 py-2 px-3 outline-none outline-gray-100" placeholder='Title' />
+        <input value={title} onChange={(e)=>setTitle(e.target.value)} type="text" className="w-full  rounded-md dark:bg-neutral-800 bg-gray-50 py-2 px-3 dark:outline-neutral-800 outline-none outline-gray-100" placeholder='Title' />
       </div>
       <div className='my-2 w-full lg:w-2/3'>
-        <textarea value={desc} onChange={(e)=>setDesc(e.target.value)} className="w-full  rounded-md bg-gray-50 py-2 px-3 outline-none outline-gray-100" placeholder='Description' />
+        <textarea value={desc} onChange={(e)=>setDesc(e.target.value)} className="w-full  rounded-md dark:bg-neutral-800 bg-gray-50 py-2 px-3 dark:outline-neutral-800 outline-none outline-gray-100" placeholder='Description' />
       </div>
-      <div className="editor mt-5 w-full">
+      <div className="editor mt-5 w-full flex justify-center items-center">
             <Editor readOnly={false} data={data} onChange={setData} editorblock="editorjs-container" />
       
       </div>

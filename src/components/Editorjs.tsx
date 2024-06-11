@@ -34,7 +34,7 @@ const Editor = ({ data, onChange, editorblock,readOnly = false }) => {
   const ref = useRef<EditorJS>();
   useEffect(() => {
     //Initialize editorjs if we don't have a reference
-    if (!ref.current && ref.current != undefined) {
+    if (!ref.current) {
       const editor = new EditorJS({
         holder: editorblock,
         readOnly:readOnly,

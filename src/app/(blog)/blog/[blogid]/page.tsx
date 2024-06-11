@@ -1,12 +1,12 @@
 'use client'
 import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
 import dynamic from 'next/dynamic'
 const Editor = dynamic(() => import('@/components/Editorjs'), {
   ssr: false,
 })
-import { useRouter } from "next/navigation"
 
-const API_URL = process.env.API_URL
+const API_URL = process.env.NEXT_PUBLIC_API_URL
 export default function Blog({params}:{params:{blogid:number}}){
   const nav = useRouter()
   const [title,setTitle] = useState<string>();
@@ -28,8 +28,6 @@ export default function Blog({params}:{params:{blogid:number}}){
       setTitle(data.title)      
       setDesc(data.desc)
       setdate(data.created_at)
-      console.log(data);
-      
       setData(JSON.parse(data.content))
     }
     fetchData();
@@ -63,7 +61,7 @@ export default function Blog({params}:{params:{blogid:number}}){
                   <div className="whitespace-nowrap  overflow-hidden overflow-ellipsis dark:text-white text-neutral-700">{post.title}</div>
                   <div className="whitespace-nowrap text-sm text-neutral-500 dark:text-neutral-400 overflow-hidden overflow-ellipsis">{post.desc}</div>
                 </div>
-                <div className="h-14 w-14 flex items-center justify-center"><svg className="stroke-neutral-100" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 6L15 12L9 18" stroke="inherit" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ></path> </g></svg></div>
+                <div className="h-14 w-14 flex items-center justify-center"><svg className="stroke-neutral-100" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 6L15 12L9 18" stroke="inherit" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" ></path> </g></svg></div>
               </div>
             }
           }
