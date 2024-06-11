@@ -16,7 +16,7 @@ export default function RootLayout({
 
       <div id='header' className="px-4 py-5 bg-slate-800">
         <div className="text-3xl bg-clip-text bg-gradient-to-br from-amber-400 to-amber-500 text-transparent font-bold ">
-          Lasan's Dev Blog
+        Lasan&apos;s Dev Blog
         </div>
       </div>
       {children}

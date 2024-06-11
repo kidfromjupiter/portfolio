@@ -1,6 +1,8 @@
 "use client"
-import Editor from "@/components/Editorjs"
-import { log } from "console";
+import dynamic from 'next/dynamic'
+const Editor = dynamic(() => import('@/components/Editorjs'), {
+  ssr: false,
+})
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from 'react';
 const API_URL = "http://localhost:8000/api/"
@@ -41,7 +43,7 @@ export default function EditBlog({params}:{params:{blogid:number}}){
     }
 
     sync()
-  },[])
+  },[params.blogid])
   return (
     <div className='flex flex-col p-10 justify-center items-center text-black dark:text-neutral-100 dark:bg-neutral-900'>
       <div className='my-2 w-full lg:w-2/3'>

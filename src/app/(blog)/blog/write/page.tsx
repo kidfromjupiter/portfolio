@@ -1,6 +1,9 @@
 
 "use client"
-import Editor from "@/components/Editorjs"
+import dynamic from 'next/dynamic'
+const Editor = dynamic(() => import('@/components/Editorjs'), {
+  ssr: false,
+})
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from 'react';
 
@@ -40,15 +43,6 @@ export default function WriteBlog(){
     }
 
   }
-  useEffect(()=>{
-    async () => {
-      const response = await fetch(`${API_URL}blogs/${params.blogid}`)
-      const data = await response.json()
-      setData(data.content)
-      setTitle(data.title)
-      setDesc(data.desc)
-    }
-  },[])
   return (
     <div className='flex flex-col m-10 justify-center items-center'>
       <div className='my-2 w-full lg:w-2/3'>

@@ -15,8 +15,7 @@ export const EDITOR_JS_TOOLS = {
   },
   checkList: CheckList,
   list: List,
-  header: Header,
-  delimiter: Delimiter,
+  header: Header, delimiter: Delimiter,
   link: Link,
   image: {
             class: ImageTool,
@@ -29,13 +28,13 @@ export const EDITOR_JS_TOOLS = {
             }
           }
 }
+// @ts-ignore
 const Editor = ({ data, onChange, editorblock,readOnly = false }) => {
 
-  const ref = useRef();
-  //Initialize editorjs
+  const ref = useRef<EditorJS>();
   useEffect(() => {
     //Initialize editorjs if we don't have a reference
-    if (!ref.current) {
+    if (!ref.current && ref.current != undefined) {
       const editor = new EditorJS({
         holder: editorblock,
         readOnly:readOnly,

@@ -1,6 +1,9 @@
 'use client'
 import { useEffect, useState } from "react"
-import Editor from "@/components/Editorjs"
+import dynamic from 'next/dynamic'
+const Editor = dynamic(() => import('@/components/Editorjs'), {
+  ssr: false,
+})
 import { useRouter } from "next/navigation"
 
 const API_URL = "http://localhost:8000/api/"
@@ -9,8 +12,8 @@ export default function Blog({params}:{params:{blogid:number}}){
   const [title,setTitle] = useState<string>();
   const [desc,setDesc] = useState<string>();
   const [data, setData] = useState();
-  const [date, setdate] = useState()
-  const [recentPosts, setrecentPosts] = useState()
+  const [date, setdate] = useState("")
+  const [recentPosts, setrecentPosts] = useState<[]>()
   const getRecent = async () =>{
     const response = await fetch(`${API_URL}blogs?limit=4`)
     if (response.status ==200) {
@@ -31,7 +34,7 @@ export default function Blog({params}:{params:{blogid:number}}){
     }
     fetchData();
     getRecent();
-  }, [])
+  }, [params.blogid])
   
   return (
     <div className="bg-neutral-50 dark:bg-neutral-900">
@@ -52,9 +55,9 @@ export default function Blog({params}:{params:{blogid:number}}){
           <div className="text-slate-800 dark:text-white font-bold mb-5 ml-3 text-xl">Recent posts</div>
           <div className="mb-10 lg:w-96 border-neutral-600 rounded-3xl border-1 overflow-hidden">
   
-          {recentPosts && recentPosts.map((post,i)=> {
+          {recentPosts && recentPosts.map((post:{id:number,title:string,desc:string},i)=> {
             if (post.id != params.blogid) {
-              return <div onClick={()=>nav.push(`/blog/${post.id}`)} className={`py-2 px-3 flex items-center justify-center overflow-hidden border-b-neutral-700 cursor-pointer ${i == recentPosts.length -1 ? "":"border-b-1"}`}>
+              return <div onClick={()=>nav.push(`/blog/${post.id}`)} key={i} className={`py-2 px-3 flex items-center justify-center overflow-hidden border-b-neutral-700 cursor-pointer ${i == recentPosts.length -1 ? "":"border-b-1"}`}>
 
                 <div className="overflow-hidden">
                   <div className="whitespace-nowrap  overflow-hidden overflow-ellipsis dark:text-white text-neutral-700">{post.title}</div>
