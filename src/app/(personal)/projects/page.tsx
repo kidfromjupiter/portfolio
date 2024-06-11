@@ -12,8 +12,8 @@ export default function Projects() {
 				<ProjectCard
 					name="Taste"
 					desc="E-commerce platform"
-					image="/website.jpg"
-					link="#"
+					image="/taste.png"
+					link="https://taste-three.vercel.app/"
 					tags={[
 						"Django",
 						"AWS",
@@ -39,7 +39,7 @@ export default function Projects() {
 				<ProjectCard
 					name="Portals"
 					desc="Chat application"
-					image="/website.jpg"
+					image="/portals.png"
 					link="https://portals-alpha.vercel.app/"
 					tags={[
 						"Django",
