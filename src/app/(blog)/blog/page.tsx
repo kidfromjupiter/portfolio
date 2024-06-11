@@ -3,7 +3,7 @@ import BlogCard from "@/components/BlogCard";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const API_URL = "http://localhost:8000/api/"
+const API_URL = process.env.API_URL
 export default function BlogList(){
   const [blogPosts, setblogPosts] = useState<[]>() 
   const router = useRouter()

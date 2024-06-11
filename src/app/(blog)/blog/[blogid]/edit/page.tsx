@@ -5,7 +5,7 @@ const Editor = dynamic(() => import('@/components/Editorjs'), {
 })
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from 'react';
-const API_URL = "http://localhost:8000/api/"
+const API_URL = process.env.API_URL
 export default function EditBlog({params}:{params:{blogid:number}}){
   const nav = useRouter()
   const [title,setTitle] = useState<string>();
