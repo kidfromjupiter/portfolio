@@ -1,6 +1,5 @@
 from datetime import datetime,timezone
 import os
-import ssl
 from sqlalchemy import Column, Text, create_engine, Integer,String,DateTime,desc
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session
@@ -64,8 +63,6 @@ UPLOAD_DIR = "uploads"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 app = FastAPI()
-ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
-ssl_context.load_cert_chain('./cert.pem', keyfile='./key.pem')
 app.add_middleware(CORSMiddleware,allow_origins=["*"],allow_methods=["*"],allow_headers=["*"])
 
 @app.delete("/api/blogs/{blog_id}", response_model=BlogListResponse)
