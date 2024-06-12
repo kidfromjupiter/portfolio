@@ -8,6 +8,7 @@ import Delimiter from "@editorjs/delimiter";
 import CheckList from "@editorjs/checklist";
 import ImageTool from '@editorjs/image';
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL
 export const EDITOR_JS_TOOLS = {
   paragraph: {
     class: Paragraph,
@@ -21,7 +22,7 @@ export const EDITOR_JS_TOOLS = {
             class: ImageTool,
             config: {
               endpoints: {
-                  byFile: 'http://localhost:8000/api/upload-image/', // Your FastAPI endpoint
+                  byFile: `${API_URL}upload-image`, // Your FastAPI endpoint
               },
               field: 'file', // the FormData key for the image file
               types: 'image/*' // the accepted file types
@@ -40,7 +41,7 @@ const Editor = ({ data, onChange, editorblock,readOnly = false }) => {
         readOnly:readOnly,
         tools: EDITOR_JS_TOOLS,
         data: data,
-        async onChange(api, event) {
+        async onChange(api ) {
           if (!readOnly) {
             const data = await api.saver.save();
             onChange(data);
@@ -57,7 +58,7 @@ const Editor = ({ data, onChange, editorblock,readOnly = false }) => {
       }
     };
   }, []);
-  return <> <article className="prose prose-zinc dark:prose-invert"><div id={editorblock} /></article><style>{`.codex-editor__redactor { padding-bottom:10px!important;}`}</style></>;
+  return <> <article className="prose prose-zinc dark:prose-invert max-w-full"><div id={editorblock} className="w-full" /></article><style>{`.codex-editor__redactor { padding-bottom:100px!important;}`}</style></>;
 };
 
 export default memo(Editor);

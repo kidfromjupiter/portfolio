@@ -10,7 +10,9 @@ from fastapi import FastAPI,Depends,HTTPException,UploadFile,File
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
+from dotenv import load_dotenv
 
+load_dotenv("./.env")
 # DB stuff
 SQLALCHEMY_DATABASE_URL = "sqlite:///./sql.db"
 # SQLALCHEMY_DATABASE_URL = "postgresql://user:password@postgresserver/db"
@@ -59,7 +61,19 @@ class BlogListResponse(BaseModel):
 
 UPLOAD_DIR = "uploads"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
+
 app = FastAPI()
+app.add_middleware(CORSMiddleware,allow_origins=["*"],allow_methods=["*"],allow_headers=["*"])
+
+@app.delete("/api/blogs/{blog_id}", response_model=BlogListResponse)
+def delete_blog(blog_id: int, db: Session = Depends(get_db)):
+    blog = db.query(Blog).filter(Blog.id == blog_id).first()
+    if blog is None:
+        raise HTTPException(status_code=404, detail="Blog not found")
+    db.delete(blog)
+    db.commit()
+    return blog
+
 @app.post("/api/upload-image/")
 async def upload_image(file: UploadFile = File(...)):
     try:
@@ -76,13 +90,12 @@ async def upload_image(file: UploadFile = File(...)):
         with open(file_path, "wb") as f:
             f.write(await file.read())
 
-        return JSONResponse(content={"success": 1, "file": {"url": f"/{UPLOAD_DIR}/{filename}"}})
+        return JSONResponse(content={"success": 1, "file": {"url": f"http://{os.environ['HOST']}/api/{UPLOAD_DIR}/{filename}"}})
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 # Serve uploaded files
-app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
-app.add_middleware(CORSMiddleware,allow_origins=["*"],allow_methods=["*"],allow_headers=["*"])
+app.mount("/api/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
 @app.post("/api/blogs",response_model=BlogListResponse)
 def create_or_update_blog(blog: BlogCreateUpdate, db: Session = Depends(get_db)):
     if blog.id:

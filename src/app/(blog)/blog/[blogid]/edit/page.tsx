@@ -29,6 +29,15 @@ export default function EditBlog({params}:{params:{blogid:number}}){
     }
 
   }
+  const deleteBlog = async () => {
+    const response = await fetch(`${API_URL}blogs/${params.blogid}`,{
+          method:"DELETE",
+    })
+    if (response.status == 200) {
+      nav.push("/blog")
+      
+    }
+  }
   useEffect(()=>{
      const sync = async () => {
       const response = await fetch(`${API_URL}blogs/${params.blogid}`)
@@ -57,8 +66,9 @@ export default function EditBlog({params}:{params:{blogid:number}}){
             <Editor data={data} onChange={setData} editorblock="editorjs-container" />
       }
       </div>
-      <div>
+      <div className='grid grid-flow-col gap-3'>
         <div onClick={saveData} className='rounded-md text-white py-2 px-3 bg-emerald-500 cursor-pointer hover:bg-emerald-600'>Save</div>
+        <div onClick={deleteBlog} className=' rounded-md text-white py-2 px-3 bg-red-500 cursor-pointer hover:bg-red-600'>Delete</div>
       </div>
     </div>
     
