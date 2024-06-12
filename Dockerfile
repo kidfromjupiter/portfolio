@@ -1,6 +1,9 @@
 # Use the official Node.js image from the Docker Hub
-FROM node:20-alpine
+FROM node:22-bookworm-slim
 
+# setting the build variables properly
+ARG NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_API_URL $NEXT_PUBLIC_API_URL
 # Set the working directory
 WORKDIR /app
 

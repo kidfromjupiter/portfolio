@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   fastapi:
     build:
@@ -10,18 +8,19 @@ services:
     volumes:
       - fastapi_uploads:/app/upload
     environment:
-      HOST: lasan.digital  
+      HOSTNAME: lasan.digital  
 
   nextjs:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_API_URL=http://lasan.digital/api/
     ports:
       - "3000:3000"
     environment:
       SENDER_USER: limahaliyana@gmail.com
       SENDER_PW: hyf7VwcB9JEZSOAX
-      NEXT_PUBLIC_API_URL: http://lasan.digital/api/
 
 
 volumes:

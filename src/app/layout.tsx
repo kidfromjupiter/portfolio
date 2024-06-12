@@ -1,7 +1,10 @@
-import { Inter } from "next/font/google";
 import "./globals.css";
 import { Metadata } from "next";
-const inter = Inter({ subsets: ["latin"] });
+import localFont from "next/font/local";
+const inter = localFont({
+  src: "../fonts/Inter/inter.ttf",
+  display:"swap"
+})
 
 export const metadata: Metadata = {
 	title: "Lasan Mahaliyana",
