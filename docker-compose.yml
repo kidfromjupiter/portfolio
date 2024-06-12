@@ -7,6 +7,10 @@ services:
       dockerfile: backend/Dockerfile
     ports:
       - "8000:8000"
+    volumes:
+      - fastapi_uploads:/app/upload
+    environment:
+      HOST: lasan.digital  
 
   nextjs:
     build:
@@ -14,5 +18,11 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    environment:
+      SENDER_USER: limahaliyana@gmail.com
+      SENDER_PW: hyf7VwcB9JEZSOAX
+      NEXT_PUBLIC_API_URL: http://lasan.digital/api/
 
 
+volumes:
+  fastapi_uploads:
