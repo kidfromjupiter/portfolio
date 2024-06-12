@@ -90,7 +90,7 @@ async def upload_image(file: UploadFile = File(...)):
         with open(file_path, "wb") as f:
             f.write(await file.read())
 
-        return JSONResponse(content={"success": 1, "file": {"url": f"http://{os.environ['HOSTNAME']}/api/{UPLOAD_DIR}/{filename}"}})
+        return JSONResponse(content={"success": 1, "file": {"url": f"https://{os.environ['HOSTNAME']}/api/{UPLOAD_DIR}/{filename}"}})
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
