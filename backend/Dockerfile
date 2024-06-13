@@ -5,13 +5,13 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # Copy the requirements file into the container
-COPY backend/requirements.txt .
+COPY ./requirements.txt .
 
 # Install the dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the FastAPI app code into the container
-COPY backend /app
+COPY . /app
 
 # Create the upload directory in case it doesn't exist
 RUN mkdir -p /app/upload
