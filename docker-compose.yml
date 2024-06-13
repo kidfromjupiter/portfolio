@@ -1,27 +1,20 @@
 services:
   fastapi:
-    build:
-      context: .
-      dockerfile: backend/Dockerfile
+    image: kidfromjupiter/personal:portfolio-backend
     ports:
       - "8000:8000"
     volumes:
       - fastapi_uploads:/app/upload
     environment:
-      HOSTNAME: lasan.digital  
+      HOSTNAME: lasan.digital
 
   nextjs:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        - NEXT_PUBLIC_API_URL=https://lasan.digital/api/
+    image: kidfromjupiter/personal:portfolio-frontend
     ports:
       - "3000:3000"
     environment:
       SENDER_USER: limahaliyana@gmail.com
       SENDER_PW: hyf7VwcB9JEZSOAX
-
 
 volumes:
   fastapi_uploads:

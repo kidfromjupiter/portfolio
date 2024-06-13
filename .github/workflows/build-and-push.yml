@@ -35,5 +35,7 @@ jobs:
           context: .
           push: true
           tags: kidfromjupiter/personal:portfolio-frontend
+          build-args: |
+            NEXT_PUBLIC_API_URL=https://lasan.digital/api/
 
 
