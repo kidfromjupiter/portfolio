@@ -68,9 +68,9 @@ export default function RootLayout({
 							>
 								<Image
 									as={NextImage}
-									width={200}
+									width={320}
 									height={320}
-									src="/me.jpg"
+									src="/me.png"
 									alt="NextUI hero Image"
 									isBlurred
 								/>
