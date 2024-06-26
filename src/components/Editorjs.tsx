@@ -7,6 +7,7 @@ import Link from "@editorjs/link";
 import Delimiter from "@editorjs/delimiter";
 import CheckList from "@editorjs/checklist";
 import ImageTool from '@editorjs/image';
+import CodeTool from '@editorjs/code';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 export const EDITOR_JS_TOOLS = {
@@ -18,6 +19,7 @@ export const EDITOR_JS_TOOLS = {
   list: List,
   header: Header, delimiter: Delimiter,
   link: Link,
+  code:CodeTool,
   image: {
             class: ImageTool,
             config: {

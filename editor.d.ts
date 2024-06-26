@@ -35,3 +35,7 @@ declare module "@editorjs/image" {
   import ImageTool from "@editorjs/image";
   export = ImageTool;
 }
+declare module "@editorjs/code" {
+  import CodeTool from "@editorjs/code";
+  export = CodeTool;
+}
