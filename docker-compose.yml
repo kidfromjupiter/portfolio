@@ -7,6 +7,7 @@ services:
       - fastapi_uploads:/app/upload
     environment:
       HOSTNAME: lasan.digital
+    restart: unless-stopped
 
   nextjs:
     image: kidfromjupiter/personal:portfolio-frontend
@@ -15,6 +16,7 @@ services:
     environment:
       SENDER_USER: limahaliyana@gmail.com
       SENDER_PW: hyf7VwcB9JEZSOAX
+    restart: unless-stopped
 
 volumes:
   fastapi_uploads:

@@ -49,7 +49,7 @@ export default function Blog({params}:{params:{blogid:number}}){
         
         </div>
         }
-        <div className="sticky top-10 mt-16 lg:mx-0 mx-16">
+        <div className="sticky top-10 mt-16 mx-0 md:mx-16 lg:mx-0">
           <div className="text-slate-800 dark:text-white font-bold mb-5 ml-3 text-xl">Recent posts</div>
           <div className="mb-10 lg:w-96 border-neutral-600 rounded-3xl border-1 overflow-hidden">
   
