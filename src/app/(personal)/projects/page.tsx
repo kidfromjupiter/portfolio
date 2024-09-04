@@ -13,10 +13,10 @@ export default function Projects() {
 					name="Taste"
 					desc="E-commerce platform"
 					image="/taste.png"
-					link="https://taste-three.vercel.app/"
+					link="https://taste.lasan.digital"
 					tags={[
 						"Django",
-						"AWS",
+						"Docker",
 						"React",
 						"Vercel",
 						"Figma",
@@ -40,7 +40,7 @@ export default function Projects() {
 					name="Portals"
 					desc="Chat application"
 					image="/portals.png"
-					link="https://portals-alpha.vercel.app/"
+					link="https://portals.lasan.digital"
 					tags={[
 						"Django",
 						"React",
@@ -49,6 +49,7 @@ export default function Projects() {
 						"django-rest-framework",
 						"framer-motion",
 						"django-channels",
+						"Docker",
 					].map((tag, i) => (
 						<div
 							key={i}
