@@ -149,7 +149,7 @@ export default function RootLayout({
 									className="  text-base text-slate-500 pb-10"
 								>
 									Designed and developed by yours truly with NextJS, and react.
-									Coded in VSCode. Deployed in Vercel
+									Coded in VSCode. Deployed in GCP
 								</div>
 							</div>
 						</div>
