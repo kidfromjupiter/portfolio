@@ -19,7 +19,6 @@ export default function NavBar({}: any) {
 		>
 			<Tab as={Link} title="About me" href="/" key="/"></Tab>
 			<Tab as={Link} title="Skills" href="/skills" key="/skills"></Tab>
-			<Tab as={Link} title="Projects" href="/projects" key="/projects"></Tab>
 			<Tab as={Link} title="Contact" href="/contact" key="/contact"></Tab>
 			{/* <Tab key={"/"} />
 			<Tab
