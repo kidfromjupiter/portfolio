@@ -1,0 +1,204 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+import { Jersey_10 } from "next/font/google";
+
+const jersey10 = Jersey_10({
+  subsets: ["latin"],
+  display: "swap",
+  weight: "400",
+});
+
+type Status = "active" | "abandoned" | "finished";
+
+type Project = {
+  slug: string;
+  title: string;
+  description: string;
+  status: Status;
+  startedAt: string | null;
+  lastActiveAt: string | null;
+  thumbnail: string | null;
+  repoUrl: string;
+};
+
+function formatDate(dateStr: string | null) {
+  if (!dateStr) return "Unknown";
+  const d = new Date(dateStr);
+  if (Number.isNaN(d.getTime())) return "Unknown";
+  return d.toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+}
+
+function statusStyles(status: Status) {
+  switch (status) {
+    case "active":
+      return "bg-emerald-500/15 text-emerald-300 border-emerald-500/50";
+    case "finished":
+      return "bg-sky-500/15 text-sky-300 border-sky-500/50";
+    case "abandoned":
+      return "bg-amber-500/10 text-amber-300 border-amber-500/40";
+    default:
+      return "bg-zinc-700/40 text-zinc-200 border-zinc-600/80";
+  }
+}
+
+export function ProjectsScroller() {
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        setLoading(true);
+        setError("");
+        const res = await fetch("/api/projects", {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
+        if (!res.ok) {
+          const body = await res.json().catch(() => ({}));
+          throw new Error(body.error || "Failed to load projects");
+        }
+        const data = await res.json();
+        setProjects(data);
+      } catch (err: any) {
+        console.error(err);
+        setError(err?.message ?? "Something went wrong");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    void load();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className={`border-zinc-800 flex flex-col ${jersey10.className}`}>
+        <CardContent className="text-sm text-zinc-400">
+          Loading projects…
+        </CardContent>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className={`border-zinc-800 flex flex-col ${jersey10.className}`}>
+        <CardHeader>
+          <p className="text-red-300 text-sm font-medium">
+            Error loading projects
+          </p>
+        </CardHeader>
+        <CardContent>
+          <p className="text-red-200/80 text-sm">{error}</p>
+        </CardContent>
+      </div>
+    );
+  }
+
+  if (!projects.length) {
+    return (
+      <div className={`border-zinc-800 flex flex-col ${jersey10.className}`}>
+        <CardContent className="text-sm text-zinc-400">
+          No projects found. Add <code>folio.yml</code> to your repos to show
+          them here.
+        </CardContent>
+      </div>
+    );
+  }
+
+  return (
+    <div className={`border-zinc-800 flex flex-col ${jersey10.className}`}>
+      {/* Scrollable list of project cards */}
+      <CardContent className="pt-0 flex-1 overflow-y-auto pr-1 space-y-4">
+        {projects.map((p) => (
+          <Card
+            key={p.slug}
+            className="bg-[#70938a]/70 border-zinc-800/90 hover:bg-[#70938a]/90 transition-colors overflow-hidden flex flex-col"
+          >
+            {/* Header thumbnail */}
+            {p.thumbnail ? (
+              <CardHeader className="p-0">
+                <div className="relative w-full h-40 md:h-52 overflow-hidden bg-zinc-900">
+                  {/* swap with next/image if you like */}
+                  <img
+                    src={p.thumbnail}
+                    alt={p.title}
+                    className="h-full w-full object-cover transition-transform duration-300 hover:scale-[1.03]"
+                    loading="lazy"
+                  />
+                </div>
+              </CardHeader>
+            ) : (
+              <CardHeader className="p-0">
+                <div className="w-full h-32 md:h-40 bg-zinc-900/80 border-b border-zinc-800/80 flex items-center justify-center text-[11px] text-zinc-600">
+                  No thumbnail
+                </div>
+              </CardHeader>
+            )}
+
+            {/* Body */}
+            <CardContent className="pt-4 pb-3 flex flex-col gap-3">
+              {/* Title + status */}
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex flex-col gap-1 min-w-0">
+                  <h3 className="text-sm md:text-base font-semibold text-zinc-50 break-words">
+                    {p.title}
+                  </h3>
+                  <a
+                    href={p.repoUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-[11px] text-zinc-400 underline-offset-2 hover:text-zinc-200 hover:underline"
+                  >
+                    View on GitHub
+                  </a>
+                </div>
+
+                <span
+                  className={
+                    "mt-1 whitespace-nowrap rounded-full border px-2 py-[2px] text-[10px] font-mono uppercase tracking-[0.14em] " +
+                    statusStyles(p.status)
+                  }
+                >
+                  {p.status}
+                </span>
+              </div>
+
+              {/* Description – vertical, multi-line */}
+              <p className="text-xs md:text-sm text-zinc-300 whitespace-pre-line leading-relaxed">
+                {p.description}
+              </p>
+            </CardContent>
+
+            {/* Footer meta */}
+            <CardFooter className="pt-0 pb-3 px-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-zinc-500 border-t border-zinc-800/70">
+              <span>
+                Started:{" "}
+                <span className="text-zinc-300">{formatDate(p.startedAt)}</span>
+              </span>
+              <span>
+                Last active:{" "}
+                <span className="text-zinc-300">
+                  {formatDate(p.lastActiveAt)}
+                </span>
+              </span>
+            </CardFooter>
+          </Card>
+        ))}
+      </CardContent>
+    </div>
+  );
+}

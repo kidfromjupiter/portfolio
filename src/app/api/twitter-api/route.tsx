@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 // ✅ Cache this route's response for 5 minutes.
 // During that time, Next.js will serve the cached JSON
 // and *won't* call the X API again.
-export const revalidate = 300; // seconds
+export const revalidate = 1600; // seconds
 
 const USERNAME = "high_entrop"; // ← your current handle
 const MAX_ITEMS = 20; // how many recent posts you want
@@ -46,6 +46,7 @@ export async function GET() {
         headers: {
           Authorization: `Bearer ${bearerToken}`,
         },
+        next: { revalidate: revalidate * 10 }, // longer cache for user data,
       }
     );
 
@@ -78,6 +79,7 @@ export async function GET() {
         headers: {
           Authorization: `Bearer ${bearerToken}`,
         },
+        next: { revalidate: revalidate },
       }
     );
 

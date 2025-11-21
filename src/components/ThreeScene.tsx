@@ -36,6 +36,7 @@ import { MenuItemType, useMenu } from "@/providers/MenuContext";
 import { HistoryEntry, TerminalHistory } from "./TerminalHistory";
 import { GitProfileCommitsPopup } from "./CommitOverlay";
 import { useFolioHistory } from "@/providers/HistoryContext";
+import { ProjectsScroller } from "./ProjectView";
 
 const doto = Doto({
   subsets: ["latin"],
@@ -298,6 +299,7 @@ export default function ThreeScene({
               </span>
             </div>
           )}
+          {activeItem === MenuItemType.PROJECTS && <ProjectsScroller />}
           <SheetFooter className="mt-auto flex justify-end">
             <SheetClose asChild>
               <Button className="bg-[#D97D55] hover:bg-[#bb6e4a] text-white border-2">
