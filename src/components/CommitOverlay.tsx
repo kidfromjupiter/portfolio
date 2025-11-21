@@ -106,13 +106,13 @@ export function GitProfileCommitsPopup() {
       <div
         className={[
           `${firacode.className} ` +
-            "fixed right-5 z-40 flex w-[420px] max-w-[calc(100%-2.5rem)] flex-col font-mono text-xs text-zinc-100  backdrop-blur-sm transition-all duration-200 bg-zinc-950/90 lg:bg-transparent",
+            "fixed  right-5 z-40 flex w-[420px] max-w-[calc(100%-2.5rem)] flex-col font-mono text-xs text-zinc-100  backdrop-blur-sm transition-all duration-200 bg-zinc-950/90 lg:bg-transparent",
           // Small screens: controlled by `open`
           open
             ? "bottom-16 opacity-100 translate-y-0"
             : "bottom-5 opacity-0 pointer-events-none translate-y-4",
           // Large screens: always visible + interactive
-          "lg:bottom-16 lg:opacity-100 lg:translate-y-0 lg:pointer-events-auto",
+          "lg:opacity-100 lg:translate-y-0 lg:pointer-events-auto",
         ].join(" ")}
       >
         {/* Header */}
@@ -138,10 +138,12 @@ export function GitProfileCommitsPopup() {
 
         {/* Scrollable list */}
         <div
-          className="max-h-[50vh] overflow-y-auto"
+          className="max-h-[40vh] overflow-y-auto"
           style={{
             WebkitMaskImage: "linear-gradient(to top, transparent, black 30%)",
             maskImage: "linear-gradient(to top, transparent, black 30%)",
+            scrollbarWidth: "thin",
+            scrollbarColor: "#727272ff transparent",
           }}
         >
           {loading && !commits.length && (

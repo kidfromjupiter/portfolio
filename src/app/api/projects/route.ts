@@ -8,7 +8,7 @@ export const revalidate = 600; // cache for 1 hour
 const GITHUB_API = "https://api.github.com";
 const { GITHUB_ACCESS_TOKEN } = process.env;
 
-type Status = "active" | "abandoned" | "finished";
+type Status = "ongoing" | "abandoned" | "finished";
 
 type FolioYaml = {
   title: string;

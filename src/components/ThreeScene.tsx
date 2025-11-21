@@ -157,16 +157,6 @@ export default function ThreeScene({
           dpr={[1, 2]}
           gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping }}
         >
-          <Text
-            position={[20, -55, 0]}
-            fontSize={2}
-            color="#2a2420"
-            anchorX="center"
-            anchorY="middle"
-            font="/fonts/Doto-VariableFont_ROND,wght.ttf"
-          >
-            built with three.js
-          </Text>
           {/* Background “walls” */}
           <mesh position={[0, 0, -20]} scale={[50, 50, 1]}>
             <planeGeometry args={[12, 12]} />

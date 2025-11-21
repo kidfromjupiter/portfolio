@@ -5,6 +5,6 @@ description: >
   so that it auto updates from my GitHub repos and Twitter post. I found it annoying that I had to manually update my portfolio
   every time I made a new project or post a tweet. So I automated the process.
   Feel free to check out the source code on GitHub!
-status: "active" # one of: active | abandoned | finished
+status: "ongoing" # one of: ongoing | abandoned | finished
 startedAt: "2024-10-01" # ISO dates are easiest
 thumbnail: "thumbnail.png" # path inside repo OR full URL

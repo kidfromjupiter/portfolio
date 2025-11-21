@@ -15,7 +15,7 @@ const jersey10 = Jersey_10({
   weight: "400",
 });
 
-type Status = "active" | "abandoned" | "finished";
+type Status = "ongoing" | "abandoned" | "finished";
 
 type Project = {
   slug: string;
@@ -73,7 +73,7 @@ function renderDescription(text: string) {
 }
 function statusStyles(status: Status) {
   switch (status) {
-    case "active":
+    case "ongoing":
       return "bg-emerald-500 text-emerald-100 border-emerald-500/50";
     case "finished":
       return "bg-sky-500 text-sky-100 border-sky-300/50";
@@ -156,7 +156,13 @@ export function ProjectsScroller() {
       className={`border-zinc-800 flex flex-col ${jersey10.className} overflow-auto`}
     >
       {/* Scrollable list of project cards */}
-      <CardContent className="pt-0 flex-1 overflow-y-auto pr-1 space-y-4 md:px-10">
+      <CardContent
+        className="pt-0 flex-1 overflow-y-auto pr-1 space-y-4 md:px-10"
+        style={{
+          scrollbarWidth: "thin",
+          scrollbarColor: "#727272ff transparent",
+        }}
+      >
         {projects.map((p) => (
           <Card
             key={p.slug}
@@ -189,19 +195,11 @@ export function ProjectsScroller() {
               <div className="flex items-start justify-between gap-3">
                 <div className="flex flex-col gap-1 min-w-0">
                   <h3
-                    className="text-2xl font-semibold text-zinc-50 break-words"
-                    style={{ textShadow: "2px 2px #000000" }}
+                    className="text-2xl font-semibold text-zinc-50 break-words tracking-[2px]"
+                    style={{ textShadow: "1px 1px #000000" }}
                   >
                     {p.title}
                   </h3>
-                  <a
-                    href={p.repoUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-sm text-zinc-600 underline-offset-2 hover:text-zinc-200 hover:underline"
-                  >
-                    View on GitHub
-                  </a>
                 </div>
 
                 <span
@@ -218,6 +216,15 @@ export function ProjectsScroller() {
               <p className="text-md md:text-lg text-zinc-200 whitespace-pre-line leading-relaxed">
                 {renderDescription(p.description)}
               </p>
+
+              <a
+                href={p.repoUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="text-sm text-zinc-600 underline-offset-2 hover:text-zinc-200 hover:underline"
+              >
+                View on GitHub
+              </a>
             </CardContent>
 
             {/* Footer meta */}

@@ -39,7 +39,9 @@ export default function Home({ children }: any) {
           className="-mt-10 px-5 py-3 border-2 border-black hover:cursor-pointer  backdrop-blur-md md:backdrop-blur-none"
         >
           <div>
-            <CardTitle className={`${doto.className} text-black text-2xl`}>
+            <CardTitle
+              className={`${doto.className} text-black text-xl md:text-2xl`}
+            >
               What I'm working on
             </CardTitle>
             <CardContent className={`${firaCode.className} pt-5`}>
