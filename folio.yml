@@ -1,0 +1,5 @@
+title: "Gitfolio – Auto-updating portfolio"
+description: "Next.js portfolio that pulls project metadata from GitHub repos."
+status: "active" # one of: active | abandoned | finished
+startedAt: "2024-10-01" # ISO dates are easiest
+thumbnail: "assets/thumbnail.png" # path inside repo OR full URL
