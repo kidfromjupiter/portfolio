@@ -37,6 +37,8 @@ import { HistoryEntry, TerminalHistory } from "./TerminalHistory";
 import { GitProfileCommitsPopup } from "./CommitOverlay";
 import { useFolioHistory } from "@/providers/HistoryContext";
 import { ProjectsScroller } from "./ProjectView";
+import { ContactMeCard } from "./ContactMe";
+import MenuItem from "./MenuItem";
 
 const doto = Doto({
   subsets: ["latin"],
@@ -266,7 +268,12 @@ export default function ThreeScene({
               {activeItem}
             </SheetTitle>
             <SheetDescription className={`${doto.className} text-black`}>
-              Cool things i've done over the years
+              {activeItem === MenuItemType.CONTACT &&
+                "Say hi, ask about a project, or reach out for collaboration."}
+              {activeItem === MenuItemType.ABOUT && "fun facts"}
+              {activeItem === MenuItemType.PROJECTS &&
+                "Cool things i've done over the years"}
+              {activeItem === MenuItemType.TERMINAL && "What I've been upto"}
             </SheetDescription>
           </SheetHeader>
           {activeItem === MenuItemType.TERMINAL && (
@@ -300,6 +307,7 @@ export default function ThreeScene({
             </div>
           )}
           {activeItem === MenuItemType.PROJECTS && <ProjectsScroller />}
+          {activeItem === MenuItemType.CONTACT && <ContactMeCard />}
           <SheetFooter className="mt-auto flex justify-end">
             <SheetClose asChild>
               <Button className="bg-[#D97D55] hover:bg-[#bb6e4a] text-white border-2">

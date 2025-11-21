@@ -38,13 +38,45 @@ function formatDate(dateStr: string | null) {
     day: "numeric",
   });
 }
+// Detect http(s) URLs and turn them into <a> tags
+function linkifyLine(line: string) {
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  const parts = line.split(urlRegex);
 
+  return parts.map((part, index) => {
+    if (/^https?:\/\/[^\s]+$/.test(part)) {
+      return (
+        <a
+          key={index}
+          href={part}
+          target="_blank"
+          rel="noreferrer"
+          className="underline underline-offset-2 text-sky-300 hover:text-sky-200 break-words"
+        >
+          {part}
+        </a>
+      );
+    }
+    return <span key={index}>{part}</span>;
+  });
+}
+
+// Preserve line breaks + linkify URLs
+function renderDescription(text: string) {
+  const lines = text.split(/\r?\n/);
+  return lines.map((line, lineIndex) => (
+    <span key={lineIndex}>
+      {linkifyLine(line)}
+      {lineIndex < lines.length - 1 && <br />}
+    </span>
+  ));
+}
 function statusStyles(status: Status) {
   switch (status) {
     case "active":
       return "bg-emerald-500 text-emerald-100 border-emerald-500/50";
     case "finished":
-      return "bg-sky-500 text-sky-300 border-sky-500/50";
+      return "bg-sky-500 text-sky-100 border-sky-300/50";
     case "abandoned":
       return "bg-amber-500 text-amber-300 border-amber-500/40";
     default:
@@ -120,9 +152,11 @@ export function ProjectsScroller() {
   }
 
   return (
-    <div className={`border-zinc-800 flex flex-col ${jersey10.className}`}>
+    <div
+      className={`border-zinc-800 flex flex-col ${jersey10.className} overflow-auto`}
+    >
       {/* Scrollable list of project cards */}
-      <CardContent className="pt-0 flex-1 overflow-y-auto pr-1 space-y-4">
+      <CardContent className="pt-0 flex-1 overflow-y-auto pr-1 space-y-4 md:px-10">
         {projects.map((p) => (
           <Card
             key={p.slug}
@@ -182,7 +216,7 @@ export function ProjectsScroller() {
 
               {/* Description – vertical, multi-line */}
               <p className="text-md md:text-lg text-zinc-200 whitespace-pre-line leading-relaxed">
-                {p.description}
+                {renderDescription(p.description)}
               </p>
             </CardContent>
 

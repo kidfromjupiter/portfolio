@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 // @ts-ignore
 import yaml from "js-yaml";
 
-export const runtime = "nodejs";
 export const revalidate = 3600; // cache for 1 hour
 
 const GITHUB_API = "https://api.github.com";
