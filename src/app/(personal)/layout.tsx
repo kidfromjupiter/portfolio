@@ -1,12 +1,5 @@
 import "../globals.css";
-import { Providers } from "./providers";
 
-import { Image, Tabs, Tab } from "@nextui-org/react";
-import NextImage from "next/image";
-import Github from "@/icons/Github";
-import LinkedIn from "@/icons/LinkedIn";
-import Instagram from "@/icons/Instagram";
-import NavBar from "@/components/Navbar";
 import { Metadata } from "next";
 import localFont from "next/font/local";
 import ThreeScene from "@/components/ThreeScene";
@@ -37,13 +30,11 @@ export default function RootLayout({
       }
     >
       <body className={inter.className + " " + " bg-slate-900 "}>
-        <Providers>
-          <MenuProvider>
-            <FolioHistoryProvider>
-              <ThreeScene>{children}</ThreeScene>
-            </FolioHistoryProvider>
-          </MenuProvider>
-        </Providers>
+        <MenuProvider>
+          <FolioHistoryProvider>
+            <ThreeScene>{children}</ThreeScene>
+          </FolioHistoryProvider>
+        </MenuProvider>
       </body>
     </html>
   );

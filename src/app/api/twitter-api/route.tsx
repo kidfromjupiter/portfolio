@@ -2,7 +2,7 @@
 import { NextResponse } from "next/server";
 
 // ✅ Cache this route's response for ~5 minutes.
-export const revalidate = 1600; // seconds
+export const revalidate = 300; // seconds
 
 // Your Bluesky handle (INCLUDING domain), e.g. "high-entrop.bsky.social"
 const USERNAME = "entropywithintent.bsky.social";
