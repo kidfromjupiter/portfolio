@@ -1,15 +1,18 @@
 // app/api/folio-updates/route.ts
 import { NextResponse } from "next/server";
 
-// ✅ Cache this route's response for 5 minutes.
-// During that time, Next.js will serve the cached JSON
-// and *won't* call the X API again.
+// ✅ Cache this route's response for ~5 minutes.
 export const revalidate = 1600; // seconds
 
-const USERNAME = "high_entrop"; // ← your current handle
+// Your Bluesky handle (INCLUDING domain), e.g. "high-entrop.bsky.social"
+const USERNAME = "entropywithintent.bsky.social";
+
 const MAX_ITEMS = 20; // how many recent posts you want
 const MAX_TEXT_LENGTH = 160; // truncate length
 const FILTER_HASHTAG = "#folioupdates"; // or "" if you want ALL posts
+
+const BSKY_AUTHOR_FEED_ENDPOINT =
+  "https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed";
 
 function truncate(text: string, max: number) {
   return text.length > max ? text.slice(0, max - 1) + "…" : text;
@@ -29,96 +32,89 @@ function stripFolioHashtag(text: string): string {
     .trim();
 }
 
+// Convert a Bluesky at:// URI into a web URL on bsky.app using your handle
+function bskyPostUrlFromUri(uri: string | undefined | null): string | null {
+  if (!uri || !uri.startsWith("at://")) return null;
+
+  // e.g. "at://did:plc:abc/app.bsky.feed.post/3k4duaz5vfs2b"
+  const parts = uri.split("/");
+  const rkey = parts[parts.length - 1];
+  if (!rkey) return null;
+
+  // USERNAME is the handle, e.g. "you.bsky.social"
+  return `https://bsky.app/profile/${USERNAME}/post/${rkey}`;
+}
+
 export async function GET() {
-  const bearerToken = process.env.X_BEARER_TOKEN;
-  if (!bearerToken) {
-    return NextResponse.json(
-      { error: "X_BEARER_TOKEN is not set on the server" },
-      { status: 500 }
-    );
-  }
-
   try {
-    // 1) Get user ID from username
-    const userRes = await fetch(
-      `https://api.x.com/2/users/by/username/${USERNAME}`,
-      {
-        headers: {
-          Authorization: `Bearer ${bearerToken}`,
-        },
-        next: { revalidate: revalidate * 10 }, // longer cache for user data,
-      }
-    );
+    // Bluesky's author feed endpoint (no auth needed for public data)
+    // Docs: https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed
+    const url = new URL(BSKY_AUTHOR_FEED_ENDPOINT);
+    url.searchParams.set("actor", USERNAME);
+    url.searchParams.set("limit", String(MAX_ITEMS));
+    // Only your own posts, no replies; tweak if you want replies:
+    // posts_no_replies | posts_with_replies | posts_with_media | posts_and_author_threads
+    url.searchParams.set("filter", "posts_no_replies");
 
-    if (!userRes.ok) {
-      console.error("Failed to fetch user:", await userRes.text());
+    const feedRes = await fetch(url.toString(), {
+      // Respect the same revalidation window
+      next: { revalidate },
+    });
+
+    if (!feedRes.ok) {
+      console.error("Failed to fetch Bluesky feed:", await feedRes.text());
       return NextResponse.json(
-        { error: "Failed to fetch user from X API" },
+        { error: "Failed to fetch feed from Bluesky API" },
         { status: 500 }
       );
     }
 
-    const userData = await userRes.json();
-    const userId = userData?.data?.id;
-    if (!userId) {
-      return NextResponse.json(
-        { error: "User ID not found in X API response" },
-        { status: 500 }
-      );
-    }
+    const feedData = await feedRes.json();
 
-    // 2) Get most recent tweets for that user
-    const tweetsRes = await fetch(
-      `https://api.x.com/2/users/${userId}/tweets?` +
-        new URLSearchParams({
-          max_results: String(MAX_ITEMS), // max 100
-          "tweet.fields": "created_at",
-          // you can add more fields if needed
-        }),
-      {
-        headers: {
-          Authorization: `Bearer ${bearerToken}`,
-        },
-        next: { revalidate: revalidate },
-      }
-    );
+    // Bluesky returns { feed: FeedViewPost[], cursor?: string }
+    const feed = (feedData as any)?.feed ?? [];
 
-    if (!tweetsRes.ok) {
-      console.error("Failed to fetch tweets:", await tweetsRes.text());
-      return NextResponse.json(
-        { error: "Failed to fetch tweets from X API" },
-        { status: 500 }
-      );
-    }
+    const tagLower = FILTER_HASHTAG.toLowerCase();
 
-    const tweetsData = await tweetsRes.json();
-    const tweets = tweetsData?.data ?? [];
+    // 1) Filter by hashtag (on the raw text)
+    const filtered = feed.filter((item: any) => {
+      const record = item?.post?.record;
+      const text: string | undefined = record?.text;
+      if (!FILTER_HASHTAG) return Boolean(text);
+      if (typeof text !== "string") return false;
+      return text.toLowerCase().includes(tagLower);
+    });
 
-    // 3) Optional: keep only posts that contain your hashtag
-    //    We filter on the *raw* tweet text so the hashtag is still present.
-    let filtered = tweets;
-    if (FILTER_HASHTAG) {
-      const tagLower = FILTER_HASHTAG.toLowerCase();
-      filtered = tweets.filter((t: any) =>
-        (t.text as string).toLowerCase().includes(tagLower)
-      );
-    }
+    // 2) Map into your desired shape: { timestamp, text, link }
+    const mapped = filtered
+      .map((item: any) => {
+        const post = item?.post;
+        const record = post?.record ?? {};
+        const text: string = typeof record.text === "string" ? record.text : "";
+        const createdAt: string | null =
+          typeof record.createdAt === "string" ? record.createdAt : null;
 
-    // 4) Map to your desired shape, stripping the hashtag and truncating
-    const mapped = filtered.map((t: any) => ({
-      timestamp: t.created_at,
-      text: truncate(stripFolioHashtag(t.text), MAX_TEXT_LENGTH),
-      // this form works even if you change your handle later:
-      // link: `https://x.com/i/web/status/${t.id}`,
-      link: `https://x.com/${USERNAME}/status/${t.id}`,
-    }));
+        // Bluesky post URI: at://did/.../app.bsky.feed.post/<rkey>
+        const uri: string | null =
+          typeof post?.uri === "string" ? post.uri : null;
+        const link = bskyPostUrlFromUri(uri);
 
-    // Already in "most recent first" order from X
+        if (!text && !link) return null;
+
+        return {
+          timestamp: createdAt, // ISO string, similar to X's created_at
+          text: truncate(stripFolioHashtag(text), MAX_TEXT_LENGTH),
+          link,
+        };
+      })
+      .filter((x: any): x is NonNullable<typeof x> => x !== null);
+
+    // Already "most recent first" from Bluesky.
     return NextResponse.json(mapped);
   } catch (err) {
-    console.error("Unexpected error talking to X API:", err);
+    console.error("Unexpected error talking to Bluesky API:", err);
     return NextResponse.json(
-      { error: "Unexpected error talking to X API" },
+      { error: "Unexpected error talking to Bluesky API" },
       { status: 500 }
     );
   }
