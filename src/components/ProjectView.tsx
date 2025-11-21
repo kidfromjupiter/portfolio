@@ -42,13 +42,13 @@ function formatDate(dateStr: string | null) {
 function statusStyles(status: Status) {
   switch (status) {
     case "active":
-      return "bg-emerald-500/15 text-emerald-300 border-emerald-500/50";
+      return "bg-emerald-500 text-emerald-100 border-emerald-500/50";
     case "finished":
-      return "bg-sky-500/15 text-sky-300 border-sky-500/50";
+      return "bg-sky-500 text-sky-300 border-sky-500/50";
     case "abandoned":
-      return "bg-amber-500/10 text-amber-300 border-amber-500/40";
+      return "bg-amber-500 text-amber-300 border-amber-500/40";
     default:
-      return "bg-zinc-700/40 text-zinc-200 border-zinc-600/80";
+      return "bg-zinc-700/ text-zinc-200 border-zinc-600/80";
   }
 }
 
@@ -126,7 +126,7 @@ export function ProjectsScroller() {
         {projects.map((p) => (
           <Card
             key={p.slug}
-            className="bg-[#70938a]/70 border-zinc-800/90 hover:bg-[#70938a]/90 transition-colors overflow-hidden flex flex-col"
+            className="bg-[#70938a] border-zinc-800/90 transition-colors overflow-hidden flex flex-col"
           >
             {/* Header thumbnail */}
             {p.thumbnail ? (
@@ -154,14 +154,17 @@ export function ProjectsScroller() {
               {/* Title + status */}
               <div className="flex items-start justify-between gap-3">
                 <div className="flex flex-col gap-1 min-w-0">
-                  <h3 className="text-sm md:text-base font-semibold text-zinc-50 break-words">
+                  <h3
+                    className="text-2xl font-semibold text-zinc-50 break-words"
+                    style={{ textShadow: "2px 2px #000000" }}
+                  >
                     {p.title}
                   </h3>
                   <a
                     href={p.repoUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="text-[11px] text-zinc-400 underline-offset-2 hover:text-zinc-200 hover:underline"
+                    className="text-sm text-zinc-600 underline-offset-2 hover:text-zinc-200 hover:underline"
                   >
                     View on GitHub
                   </a>
@@ -169,7 +172,7 @@ export function ProjectsScroller() {
 
                 <span
                   className={
-                    "mt-1 whitespace-nowrap rounded-full border px-2 py-[2px] text-[10px] font-mono uppercase tracking-[0.14em] " +
+                    "mt-1 whitespace-nowrap text-[#6FA4AF] border px-2 py-[2px] text-[10px] font-mono uppercase tracking-[0.14em] " +
                     statusStyles(p.status)
                   }
                 >
@@ -178,20 +181,20 @@ export function ProjectsScroller() {
               </div>
 
               {/* Description – vertical, multi-line */}
-              <p className="text-xs md:text-sm text-zinc-300 whitespace-pre-line leading-relaxed">
+              <p className="text-md md:text-lg text-zinc-200 whitespace-pre-line leading-relaxed">
                 {p.description}
               </p>
             </CardContent>
 
             {/* Footer meta */}
-            <CardFooter className="pt-0 pb-3 px-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-zinc-500 border-t border-zinc-800/70">
+            <CardFooter className="pt-0 pb-3 px-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-lg text-zinc-800 border-t border-zinc-800/70">
               <span>
-                Started:{" "}
-                <span className="text-zinc-300">{formatDate(p.startedAt)}</span>
+                Started:{"  "}
+                <span className="text-zinc-100">{formatDate(p.startedAt)}</span>
               </span>
               <span>
-                Last active:{" "}
-                <span className="text-zinc-300">
+                Last active:{"  "}
+                <span className="text-zinc-100">
                   {formatDate(p.lastActiveAt)}
                 </span>
               </span>
