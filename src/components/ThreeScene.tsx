@@ -89,7 +89,7 @@ export default function ThreeScene({
         </div>
         <SheetContent
           side={"left"}
-          className="w-[90%] md:max-w-[50vw] flex flex-col bg-[#B8C4A9] m-2 h-screen max-h-screen shadow-[10px_10px_0_2px_#ffffff] border-2 border-black"
+          className="w-[90%] lg:max-w-[50vw] flex flex-col bg-[#B8C4A9] m-2 h-screen max-h-screen shadow-[10px_10px_0_2px_#ffffff] border-2 border-black"
         >
           <div className="absolute h-2 w-2 -top-2 -left-2 bg-black"></div>
           <SheetHeader>
