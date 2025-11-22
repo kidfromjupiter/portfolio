@@ -39,7 +39,7 @@ export default function Home({ children }: any) {
         <SheetTrigger asChild className="pointer-events-auto">
           <div
             onClick={() => setActiveItem(MenuItemType.TERMINAL)}
-            className="-mt-10 px-5 py-3 border-2 border-black hover:cursor-pointer  bg-slate-100/20 lg:bg-transparent"
+            className="-mt-10 px-5 py-3 border-2 border-black hover:cursor-pointer  bg-slate-100/20 xl:bg-transparent"
           >
             <div>
               <CardTitle
