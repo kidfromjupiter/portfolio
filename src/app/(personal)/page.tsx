@@ -39,7 +39,7 @@ export default function Home({ children }: any) {
         <SheetTrigger asChild className="pointer-events-auto">
           <div
             onClick={() => setActiveItem(MenuItemType.TERMINAL)}
-            className="-mt-10 px-5 py-3 border-2 border-black hover:cursor-pointer  backdrop-blur-md md:backdrop-blur-none"
+            className="-mt-10 px-5 py-3 border-2 border-black hover:cursor-pointer  bg-slate-100/20 lg:bg-transparent"
           >
             <div>
               <CardTitle
@@ -50,10 +50,12 @@ export default function Home({ children }: any) {
               <CardContent
                 className={`${firaCode.className} pt-5 text-sm md:text-lg`}
               >
-                <span className="text-[#6FA4AF]">
+                <span className="text-[#6FA4AF] ">
                   {"lasan@lasan-desktop ~> "}
                 </span>
-                <span>{updates[0]?.text}</span>
+                <span className="text-black mix-blend-darken">
+                  {updates[0]?.text}
+                </span>
                 <span
                   className="
           ml-1 inline-block
