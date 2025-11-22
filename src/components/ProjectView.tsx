@@ -229,18 +229,22 @@ export function ProjectsScroller() {
             </CardContent>
 
             {/* Footer meta */}
-            <CardFooter className="pt-0 pb-3 px-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-lg text-zinc-800 border-t border-zinc-800/70">
-              <span>
-                Started:{"  "}
-                <span className="text-zinc-100">{formatDate(p.startedAt)}</span>
-              </span>
-              <span>
-                Last active:{"  "}
-                <span className="text-zinc-100">
-                  {formatDate(p.lastActiveAt)}
+            {p.status !== "finished" && (
+              <CardFooter className="pt-0 pb-3 px-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-lg text-zinc-800 border-t border-zinc-800/70">
+                <span>
+                  Started:{"  "}
+                  <span className="text-zinc-100">
+                    {formatDate(p.startedAt)}
+                  </span>
                 </span>
-              </span>
-            </CardFooter>
+                <span>
+                  Last active:{"  "}
+                  <span className="text-zinc-100">
+                    {formatDate(p.lastActiveAt)}
+                  </span>
+                </span>
+              </CardFooter>
+            )}
           </Card>
         ))}
       </CardContent>
