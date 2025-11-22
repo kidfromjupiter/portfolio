@@ -31,6 +31,7 @@
     "three": "^0.181.2"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^16.0.3",
     "@types/node": "^20.19.25",
     "@types/nodemailer": "^6.4.21",
     "@types/react": "^18.3.27",

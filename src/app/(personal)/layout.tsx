@@ -2,9 +2,9 @@ import "../globals.css";
 
 import { Metadata } from "next";
 import localFont from "next/font/local";
-import ThreeScene from "@/components/ThreeScene";
 import { MenuProvider } from "@/providers/MenuContext";
 import { FolioHistoryProvider } from "@/providers/HistoryContext";
+import ThreeScene from "@/components/ThreeScene";
 const inter = localFont({
   src: "../../fonts/Inter/inter.ttf",
   display: "swap",
@@ -31,9 +31,7 @@ export default function RootLayout({
     >
       <body className={inter.className + " " + " bg-slate-900 "}>
         <MenuProvider>
-          <FolioHistoryProvider>
-            <ThreeScene>{children}</ThreeScene>
-          </FolioHistoryProvider>
+          <FolioHistoryProvider>{children}</FolioHistoryProvider>
         </MenuProvider>
       </body>
     </html>
