@@ -43,7 +43,7 @@ export default function Home({ children }: any) {
           >
             <div>
               <CardTitle
-                className={`${doto.className} text-black text-lg md:text-2xl`}
+                className={`${doto.className} text-white md:text-black text-lg md:text-2xl`}
               >
                 What I'm working on
               </CardTitle>
@@ -53,7 +53,7 @@ export default function Home({ children }: any) {
                 <span className="text-[#6FA4AF] ">
                   {"lasan@lasan-desktop ~> "}
                 </span>
-                <span className="text-black mix-blend-darken">
+                <span className="text-white md:text-black mix-blend-darken">
                   {updates[0]?.text}
                 </span>
                 <span
