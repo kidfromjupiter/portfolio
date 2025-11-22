@@ -69,7 +69,7 @@ export default function ThreeBackground({ onReady }: Props) {
           shadow-mapSize-height={1024}
         />
         <ambientLight intensity={0.2} />
-        {/* <pointLight position={[4, 6, 3]} intensity={1} /> */}
+        <pointLight position={[4, 30, 10]} intensity={100} />
         <spotLight
           castShadow
           position={[4, 100, 3]}

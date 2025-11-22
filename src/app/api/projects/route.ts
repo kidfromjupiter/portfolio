@@ -16,9 +16,12 @@ type FolioYaml = {
   status: Status;
   startedAt?: string; // now optional / ignored in favour of first commit
   thumbnail?: string;
+  noRepo?: boolean;
+  customRepoUrl?: string;
 };
 
-type Project = {
+export type Project = {
+  noRepo: boolean;
   slug: string;
   title: string;
   description: string;
@@ -230,6 +233,7 @@ export async function GET() {
         }
 
         projects.push({
+          noRepo: folio.noRepo || false,
           slug: name,
           title: folio.title,
           description: folio.description,
@@ -237,7 +241,7 @@ export async function GET() {
           startedAt: firstCommitDate,
           lastActiveAt,
           thumbnail,
-          repoUrl: repo.html_url as string,
+          repoUrl: folio.customRepoUrl || (repo.html_url as string),
         });
       })
     );

@@ -26,8 +26,6 @@ import { useFolioHistory } from "@/providers/HistoryContext";
 import { ProjectsScroller } from "./ProjectView";
 import { ContactMeCard } from "./ContactMe";
 import { NpmSpinnerLoaderRegular } from "./NpmLoaderRegular";
-import Github from "@/icons/Github";
-import LinkedIn from "@/icons/LinkedIn";
 const ThreeBackground = dynamic(() => import("./ThreeBackground"), {
   ssr: false,
   loading: () => null, // IMPORTANT: no extra wrapper UI to avoid WebGL weirdness
@@ -54,6 +52,10 @@ export default function ThreeScene({
   const { activeItem } = useMenu();
   const { updates, loading, error, refresh } = useFolioHistory();
   const [bgReady, setBgReady] = useState(false);
+
+  // Calculate years of programming experience
+  const yearsCoding = new Date().getFullYear() - 2016;
+
   return (
     <Sheet>
       <section className="w-full h-screen">
@@ -124,10 +126,10 @@ export default function ThreeScene({
               </span>
               <br />
               <span className="mt-3 block">
-                Fast forward 8 years and here I am. My main focus these days is
-                improving on my craft and learning new things. Work revolves
-                around django, react and new web technologies that popup here
-                and there.
+                Fast forward {yearsCoding} years and here I am. My main focus
+                these days is improving on my craft and learning new things. My
+                work revolves around web technologies, C++ and cool engineering
+                projects that popup here and there.
               </span>
               <br />
               <span className="mt-3 block">
@@ -142,7 +144,9 @@ export default function ThreeScene({
           {activeItem === MenuItemType.CONTACT && <ContactMeCard />}
           <SheetFooter className="mt-auto flex justify-end">
             <SheetClose asChild>
-              <Button className="bg-[#D97D55] hover:bg-[#bb6e4a] text-white border-2">
+              <Button
+                className={`bg-[#D97D55] hover:bg-[#bb6e4a] text-white text-lg border-2 ${jersey10.className}`}
+              >
                 Close
               </Button>
             </SheetClose>

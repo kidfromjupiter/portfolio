@@ -8,6 +8,8 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Jersey_10 } from "next/font/google";
+import { NpmSpinnerLoaderRegular } from "./NpmLoaderRegular";
+import { Project } from "@/app/api/projects/route";
 
 const jersey10 = Jersey_10({
   subsets: ["latin"],
@@ -16,17 +18,6 @@ const jersey10 = Jersey_10({
 });
 
 type Status = "ongoing" | "abandoned" | "finished";
-
-type Project = {
-  slug: string;
-  title: string;
-  description: string;
-  status: Status;
-  startedAt: string | null;
-  lastActiveAt: string | null;
-  thumbnail: string | null;
-  repoUrl: string;
-};
 
 function formatDate(dateStr: string | null) {
   if (!dateStr) return "Unknown";
@@ -103,7 +94,15 @@ export function ProjectsScroller() {
           throw new Error(body.error || "Failed to load projects");
         }
         const data = await res.json();
-        setProjects(data);
+
+        // Sort projects: ongoing first, then others
+        const sortedProjects = data.sort((a: Project, b: Project) => {
+          if (a.status === "ongoing" && b.status !== "ongoing") return -1;
+          if (a.status !== "ongoing" && b.status === "ongoing") return 1;
+          return 0;
+        });
+
+        setProjects(sortedProjects);
       } catch (err: any) {
         console.error(err);
         setError(err?.message ?? "Something went wrong");
@@ -117,10 +116,10 @@ export function ProjectsScroller() {
 
   if (loading) {
     return (
-      <div className={`border-zinc-800 flex flex-col ${jersey10.className}`}>
-        <CardContent className="text-sm text-zinc-400">
-          Loading projects…
-        </CardContent>
+      <div
+        className={`border-zinc-800 flex flex-col items-center justify-center ${jersey10.className}`}
+      >
+        <NpmSpinnerLoaderRegular overlay={false} />
       </div>
     );
   }
@@ -217,14 +216,16 @@ export function ProjectsScroller() {
                 {renderDescription(p.description)}
               </p>
 
-              <a
-                href={p.repoUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="text-sm text-zinc-600 underline-offset-2 hover:text-zinc-200 hover:underline"
-              >
-                View on GitHub
-              </a>
+              {!p.noRepo && (
+                <a
+                  href={p.repoUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-sm text-zinc-600 underline-offset-2 hover:text-zinc-200 hover:underline"
+                >
+                  View on GitHub
+                </a>
+              )}
             </CardContent>
 
             {/* Footer meta */}
