@@ -62,32 +62,6 @@ export default function ThreeScene({
         {!bgReady && <NpmSpinnerLoaderRegular />}
         <GitProfileCommitsPopup />
 
-        {/* Bottom left corner buttons */}
-        <div className="absolute bottom-8 left-8 z-20 flex gap-4 pointer-events-auto">
-          <Button
-            size="icon"
-            onClick={() =>
-              window.open("https://github.com/kidfromjupiter/", "_blank")
-            }
-            className="bg-[#B8C4A9] hover:bg-[#B8C4A9] text-white border-1 hover:shadow-[1px_1px_0_2px_#ffffff]"
-          >
-            <Github className="w-10 h-10 fill-white" />
-          </Button>
-          <Button
-            size="icon"
-            className="bg-[#B8C4A9] hover:bg-[#B8C4A9] text-white border-1 hover:shadow-[1px_1px_0_2px_#ffffff]"
-            onClick={() =>
-              window.open(
-                "https://www.linkedin.com/in/lasan-mahaliyana/",
-                "_blank"
-              )
-            }
-          >
-            <LinkedIn className="w-6 h-6 fill-white" />
-          </Button>
-          {/* </button> */}
-        </div>
-
         {/* HTML content layer on top */}
         <div className="absolute z-10 flex h-full px-8 md:px-16 left-0 top-0 w-full pointer-events-none">
           <div className=" space-y-4 pt-10 text-neutral-900 w-full">

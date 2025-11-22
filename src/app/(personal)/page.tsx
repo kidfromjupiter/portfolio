@@ -7,6 +7,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MenuItemType, useMenu } from "@/providers/MenuContext";
 import { useFolioHistory } from "@/providers/HistoryContext";
 import ThreeScene from "@/components/ThreeScene";
+import { Button } from "@/components/ui/button";
+import { Github } from "lucide-react";
+import LinkedIn from "@/icons/LinkedIn";
 
 const doto = Doto({
   subsets: ["latin"],
@@ -79,6 +82,30 @@ export default function Home({ children }: any) {
             Contact
           </MenuItem>
         </SheetTrigger>
+
+        <div className="flex items-center gap-4">
+          <Button
+            size="icon"
+            onClick={() =>
+              window.open("https://github.com/kidfromjupiter/", "_blank")
+            }
+            className="bg-[#B8C4A9] hover:bg-[#B8C4A9] pointer-events-auto text-white border-1 hover:shadow-[1px_1px_0_2px_#ffffff]"
+          >
+            <Github className="w-10 h-10 fill-white" />
+          </Button>
+          <Button
+            size="icon"
+            className="bg-[#B8C4A9] hover:bg-[#B8C4A9] pointer-events-auto text-white border-1 hover:shadow-[1px_1px_0_2px_#ffffff]"
+            onClick={() =>
+              window.open(
+                "https://www.linkedin.com/in/lasan-mahaliyana/",
+                "_blank"
+              )
+            }
+          >
+            <LinkedIn className="w-6 h-6 fill-white" />
+          </Button>
+        </div>
       </div>
     </ThreeScene>
   );
