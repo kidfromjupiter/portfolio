@@ -4,7 +4,7 @@ import { useFrame } from "@react-three/fiber";
 import React, { useRef, useState } from "react";
 // @ts-ignore
 import * as THREE from "three";
-import { StlModel } from "./StlModel";
+import { GlbModel } from "./GlbModel";
 
 type ClickableObjectProps = {
   onClick?: () => void;
@@ -50,7 +50,7 @@ export function ClickableObject({
         document.body.style.cursor = "default";
       }}
     >
-      <StlModel
+      <GlbModel
         url={meshUrl}
         scale={meshScale}
         color={hovered ? "#ffe58a" : "#9ce9f8"} // highlight on hover

@@ -1,6 +1,6 @@
 import { Center, Html, PresentationControls, Text } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { StlModel } from "./StlModel";
+import { GlbModel } from "./GlbModel";
 import { useRef } from "react";
 // @ts-ignore
 import * as THREE from "three";
@@ -49,20 +49,20 @@ export default function SpinningObjects() {
       >
         {/* Center sphere */}
         <Center>
-          <mesh position={[0, 0, 100]} rotation={[90, 90, 90]} receiveShadow>
-            <StlModel
-              url="/models/BoxBody.stl"
-              color={ACCENT_COLOR}
-              scale={0.5}
+          <mesh position={[0, 0, 100]} rotation={[90, 0, -90]} receiveShadow>
+            <GlbModel
+              url="/models/keyboard.glb"
+              // color={ACCENT_COLOR}
+              scale={70}
             />
           </mesh>
-          <mesh position={[10, 10, 130]} rotation={[90, 100, 90]} receiveShadow>
-            <StlModel
+          {/* <mesh position={[10, 10, 130]} rotation={[90, 100, 90]} receiveShadow>
+            <GlbModel
               url="/models/BoxCap.stl"
               color={ACCENT_COLOR}
               scale={0.5}
             />
-          </mesh>
+          </mesh> */}
         </Center>
       </group>
     </PresentationControls>
